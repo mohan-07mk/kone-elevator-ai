@@ -13,7 +13,7 @@ services:
       - key: APP_VERSION
         value: "0.1.0"
       - key: CORS_ORIGINS
-        value: "https://elevator-ai.netlify.app"
+        value: "https://eloquent-eclair-c69e60.netlify.app,https://elevator-ai.netlify.app"
       - key: DATABASE_URL
         fromDatabase:
           name: elevator-ai-db
