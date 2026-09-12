@@ -1,0 +1,125 @@
+======================================================================
+  ELEVATOR AI -- PHASE 3 INTEGRATION TEST
+======================================================================
+
+[TEST 1] Dataset Loading...
+  [OK] Loaded 10000 raw records
+  [OK] Validated: 10000 valid records
+  [OK] Sample keys: ['UDI', 'Product ID', 'Type', 'Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Machine failure', 'TWF', 'HDF', 'PWF', 'OSF', 'RNF']
+    Air temp: 298.1 K
+    RPM: 1551.0 rpm
+    Torque: 42.8 Nm
+
+[TEST 2] Preprocessing Pipeline...
+  [OK] Preprocessed 100 records
+  [OK] Sensor keys: ['motor_temp', 'voltage', 'current', 'power', 'rpm', 'vibration', 'brake', 'load', 'humidity', 'door']
+  [OK] All 10 sensor contract fields present
+  [OK] Degradation scenario: 500 records
+  [OK] Phase 1 avg vibration: 3.680 mm/s
+  [OK] Phase 6 avg vibration: 62.121 mm/s
+  [OK] Vibration increases from Phase 1 -> Phase 6
+
+[TEST 3] FastAPI Application + API Tests...
+  Creating database tables...
+  [OK] Database tables created
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+  [OK] Seed data: {'roles': 4, 'users': 7, 'technicians': 5, 'buildings': 3, 'elevators': 10, 'sensor_definitions': 10, 'thresholds': 3, 'system_settings': 3}
+INFO:httpx:HTTP Request: GET http://test/ "HTTP/1.1 200 OK"
+  [OK] Root: Elevator AI v0.1.0
+
+[TEST 3a] Telemetry Ingestion API...
+INFO:httpx:HTTP Request: POST http://test/api/sensors/ingest "HTTP/1.1 200 OK"
+  [OK] Ingested 10 sensor readings for KONE-ELEV-001
+INFO:httpx:HTTP Request: POST http://test/api/sensors/ingest "HTTP/1.1 200 OK"
+  [OK] Ingested second telemetry batch
+
+[TEST 3b] Sensor Latest API...
+INFO:httpx:HTTP Request: GET http://test/api/elevators/KONE-ELEV-001/sensors/latest "HTTP/1.1 200 OK"
+  [OK] Latest sensors for KONE-ELEV-001:
+    motor_temp=47.8, vibration=2.5, rpm=1450.0
+
+[TEST 3c] Sensor History API...
+INFO:httpx:HTTP Request: GET http://test/api/elevators/KONE-ELEV-001/sensors/history?limit=50 "HTTP/1.1 200 OK"
+  [OK] History: 20 readings for KONE-ELEV-001
+INFO:httpx:HTTP Request: GET http://test/api/elevators/KONE-ELEV-001/sensors/vibration/history "HTTP/1.1 200 OK"
+  [OK] Vibration history: 2 points
+
+[TEST 3d] Simulator Control API...
+INFO:httpx:HTTP Request: GET http://test/api/simulator/status "HTTP/1.1 200 OK"
+  [OK] Simulator status: state=IDLE, mode=Simulation Mode
+INFO:elevator_ai.simulator:Loading AI4I dataset...
+INFO:elevator_ai.dataset:Dataset already cached at C:\Users\mohan\Downloads\KONE Ai\backend\datasets\cache\ai4i2020.csv
+INFO:elevator_ai.dataset:Loaded 10000 raw records from dataset
+INFO:elevator_ai.dataset:Validation: 10000 valid / 0 dropped / 10000 total
+INFO:elevator_ai.preprocessing:Preprocessed 10000 records into elevator telemetry
+INFO:elevator_ai.preprocessing:Built degradation scenario: 500 telemetry records in 6 phases
+INFO:elevator_ai.preprocessing:Preprocessed 500 records into elevator telemetry
+INFO:elevator_ai.preprocessing:Preprocessed 300 records into elevator telemetry
+INFO:elevator_ai.preprocessing:Preprocessed 400 records into elevator telemetry
+INFO:elevator_ai.preprocessing:Preprocessed 300 records into elevator telemetry
+INFO:elevator_ai.simulator:Dataset loaded: 10000 records, 5 scenarios
+INFO:elevator_ai.simulator:Simulator started: scenario=Scenario.BEARING_DEGRADATION, speed=10.0x, elevator=KONE-ELEV-001
+INFO:httpx:HTTP Request: POST http://test/api/simulator/start "HTTP/1.1 200 OK"
+  [OK] Started: state=RUNNING, scenario=BEARING_DEGRADATION
+INFO:httpx:HTTP Request: GET http://test/api/simulator/status "HTTP/1.1 200 OK"
+  [OK] After 1.5s at 10x: 13 records emitted
+INFO:elevator_ai.simulator:Simulator paused at position 13
+INFO:httpx:HTTP Request: POST http://test/api/simulator/pause "HTTP/1.1 200 OK"
+  [OK] Paused: state=PAUSED
+INFO:elevator_ai.simulator:Simulator resumed at position 13
+INFO:httpx:HTTP Request: POST http://test/api/simulator/resume "HTTP/1.1 200 OK"
+  [OK] Resumed: state=RUNNING
+INFO:elevator_ai.simulator:Playback loop cancelled
+INFO:elevator_ai.simulator:Simulator reset
+INFO:httpx:HTTP Request: POST http://test/api/simulator/reset "HTTP/1.1 200 OK"
+INFO:elevator_ai.simulator:Simulator reset
+INFO:elevator_ai.simulator:Scenario changed to Scenario.MOTOR_OVERHEATING
+INFO:httpx:HTTP Request: POST http://test/api/simulator/scenario "HTTP/1.1 200 OK"
+  [OK] Scenario changed: MOTOR_OVERHEATING
+INFO:elevator_ai.simulator:Simulator reset
+INFO:httpx:HTTP Request: POST http://test/api/simulator/reset "HTTP/1.1 200 OK"
+  [OK] Reset: state=IDLE, position=0
+
+[TEST 4] Database Telemetry Verification...
+INFO:httpx:HTTP Request: GET http://test/api/elevators/KONE-ELEV-001/sensors/history?limit=1000 "HTTP/1.1 200 OK"
+  [OK] Total sensor readings in DB for KONE-ELEV-001: 150
+INFO:httpx:HTTP Request: GET http://test/api/elevators/KONE-ELEV-001/sensors/motor_temp/history?limit=100 "HTTP/1.1 200 OK"
+  [OK] Motor temp readings in DB: 15
+    Latest values: [35.85, 37.95, 35.85, 35.05, 36.85]
+
+======================================================================
+  PHASE 3 -- ALL TESTS PASSED
+======================================================================
+
+  Dataset:        AI4I 2020 Predictive Maintenance (UCI ML Repository)
+  License:        CC BY 4.0
+  Raw records:    10000
+  Valid records:  10000
+  Sensor fields:  brake, current, door, humidity, load, motor_temp, power, rpm, vibration, voltage
+
+  Simulator:
+    Scenarios:    NORMAL, WARNING, BEARING_DEGRADATION, MOTOR_OVERHEATING, DOOR_ALIGNMENT
+    Demo:         KONE-ELEV-001 bearing degradation (6 phases, 500 records)
+    Deterministic: Yes (backend owns all telemetry state)
+
+  APIs tested:
+    POST /api/sensors/ingest                          [OK]
+    GET  /api/elevators/id/sensors/latest              [OK]
+    GET  /api/elevators/id/sensors/history              [OK]
+    GET  /api/elevators/id/sensors/sensor/history       [OK]
+    POST /api/simulator/start                          [OK]
+    POST /api/simulator/pause                          [OK]
+    POST /api/simulator/resume                         [OK]
+    POST /api/simulator/reset                          [OK]
+    POST /api/simulator/scenario                       [OK]
+    GET  /api/simulator/status                         [OK]
+
+  Database:       Telemetry verified in SQLite (PostgreSQL equivalent)
+  Records in DB:  150+ sensor readings
+
+INFO:elevator_ai.simulator:Simulator reset
