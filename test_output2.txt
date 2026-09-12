@@ -1,0 +1,196 @@
+INFO:httpx:HTTP Request: GET http://test/ "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://test/health "HTTP/1.1 200 OK"
+Traceback (most recent call last):
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 147, in execute
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 298, in _handle_exception
+    raise error
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 129, in execute
+    self.await_(_cursor.execute(operation, parameters))
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\cursor.py", line 40, in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\cursor.py", line 32, in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\core.py", line 160, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\core.py", line 63, in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+sqlite3.OperationalError: no such table: elevators
+System.Management.Automation.RemoteException
+The above exception was the direct cause of the following exception:
+System.Management.Automation.RemoteException
+Traceback (most recent call last):
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\test_phase3.py", line 158, in run_tests
+    resp = await client.post("/api/sensors/ingest", json=telemetry_payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\httpx\_transports\asgi.py", line 170, in handle_async_request
+    await self.app(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 187, in __call__
+    raise exc
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\app\api\telemetry.py", line 56, in ingest_telemetry
+    result = await db.execute(select(Elevator).where(Elevator.id == payload.elevator_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 147, in execute
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 298, in _handle_exception
+    raise error
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 129, in execute
+    self.await_(_cursor.execute(operation, parameters))
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+======================================================================
+  ELEVATOR AI -- PHASE 3 INTEGRATION TEST
+======================================================================
+
+[TEST 1] Dataset Loading...
+  [OK] Loaded 10000 raw records
+  [OK] Validated: 10000 valid records
+  [OK] Sample keys: ['UDI', 'Product ID', 'Type', 'Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Machine failure', 'TWF', 'HDF', 'PWF', 'OSF', 'RNF']
+    Air temp: 298.1 K
+    RPM: 1551.0 rpm
+    Torque: 42.8 Nm
+
+[TEST 2] Preprocessing Pipeline...
+  [OK] Preprocessed 100 records
+  [OK] Sensor keys: ['motor_temp', 'voltage', 'current', 'power', 'rpm', 'vibration', 'brake', 'load', 'humidity', 'door']
+  [OK] All 10 sensor contract fields present
+    motor_temp=35.45C, rpm=1551.0, vibration=4.28mm/s
+  [OK] Degradation scenario: 500 records
+  [OK] Phase 1 avg vibration: 3.680 mm/s
+  [OK] Phase 6 avg vibration: 62.121 mm/s
+  [OK] Vibration increases from Phase 1 -> Phase 6
+
+[TEST 3] FastAPI Application + API Tests...
+  [OK] Root: Elevator AI v0.1.0
+  [OK] Health: ok
+
+[TEST 3a] Telemetry Ingestion API...
+  [FAIL] API tests: (sqlite3.OperationalError) no such table: elevators
+[SQL: SELECT elevators.id, elevators.building_id, elevators.current_floor, elevators.direction, elevators.status, elevators.health_score, elevators.active_fault, elevators.risk_level, elevators.speed, elevators.load_percentage, elevators.door_status, elevators.connection_status, elevators.last_telemetry_at, elevators.created_at, elevators.updated_at, buildings_1.id AS id_1, buildings_1.name, buildings_1.location, buildings_1.created_at AS created_at_1, buildings_1.updated_at AS updated_at_1 
+FROM elevators LEFT OUTER JOIN buildings AS buildings_1 ON buildings_1.id = elevators.building_id 
+WHERE elevators.id = ?]
+[parameters: ('KONE-ELEV-001',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\cursor.py", line 40, in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\cursor.py", line 32, in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\core.py", line 160, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\mohan\Downloads\KONE Ai\backend\venv\Lib\site-packages\aiosqlite\core.py", line 63, in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: elevators
+[SQL: SELECT elevators.id, elevators.building_id, elevators.current_floor, elevators.direction, elevators.status, elevators.health_score, elevators.active_fault, elevators.risk_level, elevators.speed, elevators.load_percentage, elevators.door_status, elevators.connection_status, elevators.last_telemetry_at, elevators.created_at, elevators.updated_at, buildings_1.id AS id_1, buildings_1.name, buildings_1.location, buildings_1.created_at AS created_at_1, buildings_1.updated_at AS updated_at_1 
+FROM elevators LEFT OUTER JOIN buildings AS buildings_1 ON buildings_1.id = elevators.building_id 
+WHERE elevators.id = ?]
+[parameters: ('KONE-ELEV-001',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:elevator_ai.simulator:Simulator reset
