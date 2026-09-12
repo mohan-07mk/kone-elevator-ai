@@ -97,8 +97,7 @@ app = FastAPI(
 )
 
 # ── CORS ────────────────────────────────────────────────────
-raw_origins = settings.cors_origin_list
-guaranteed_origins = [
+allow_origins = [
     "https://eloquent-eclair-c69e60.netlify.app",
     "https://elevator-ai.netlify.app",
     "http://localhost:3000",
@@ -109,29 +108,22 @@ guaranteed_origins = [
     "http://127.0.0.1:8000",
 ]
 
-# Clean origins: strip trailing slashes & quotes, filter out empty and '*' for credentials safety
-cleaned_origins = []
-for item in raw_origins + guaranteed_origins:
-    item = item.strip().strip('"\'').rstrip("/")
-    if item and item != "*" and item not in cleaned_origins:
-        cleaned_origins.append(item)
+# Merge extra non-wildcard origins from settings/env if present
+for item in settings.cors_origin_list:
+    cleaned = item.strip().strip('"\'').rstrip("/")
+    if cleaned and cleaned != "*" and cleaned not in allow_origins:
+        allow_origins.append(cleaned)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cleaned_origins,
+    allow_origins=allow_origins,
     allow_origin_regex=r"https://.*\.netlify\.app",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"],
     max_age=600,
 )
-
-
-@app.options("/{full_path:path}", include_in_schema=False)
-async def options_handler(full_path: str):
-    """Fallback handler to ensure all OPTIONS requests return HTTP 200 with CORS headers."""
-    return Response(status_code=200)
 
 # ── Register routers ───────────────────────────────────────
 app.include_router(auth_router)
