@@ -155,4 +155,5 @@ async def root():
         "version": settings.app_version,
         "docs": "/docs",
         "health": "/health",
+        "commit": "CORS_V3_WILDCARD",
     }
