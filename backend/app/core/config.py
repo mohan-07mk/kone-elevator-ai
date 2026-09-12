@@ -10,7 +10,16 @@ class Settings(BaseSettings):
     app_name: str = "Elevator AI"
     app_version: str = "0.1.0"
     debug: bool = False
-    cors_origins: str = "http://localhost:3000,http://localhost:5173"
+    cors_origins: str = (
+        "https://eloquent-eclair-c69e60.netlify.app,"
+        "https://elevator-ai.netlify.app,"
+        "http://localhost:3000,"
+        "http://localhost:5173,"
+        "http://localhost:8000,"
+        "http://127.0.0.1:3000,"
+        "http://127.0.0.1:5173,"
+        "http://127.0.0.1:8000"
+    )
 
     # ── Database ─────────────────────────────────────────
     database_url: str = Field(
