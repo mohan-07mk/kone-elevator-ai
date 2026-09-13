@@ -106,7 +106,6 @@ allow_origins = [
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:8000",
-    "*",
 ]
 
 # Merge extra non-wildcard origins from settings/env if present
